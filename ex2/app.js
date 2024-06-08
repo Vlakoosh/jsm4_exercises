@@ -19,9 +19,17 @@ form.oninput =  () => {
     let result = calculateResult(initial, interest, years);
 
     //update the green div element
-    let resultBoxHeight = result / initial * 100;
+    let totalHeight = 200;
+
+    let resultBoxBeforeHeight = (result - initial);
+    let resultBoxAfterHeight = resultBoxBeforeHeight * (result / initial);
+    let percentAfter = resultBoxAfterHeight / (resultBoxAfterHeight + resultBoxBeforeHeight);
+    let percentBefore = resultBoxBeforeHeight / (resultBoxAfterHeight + resultBoxBeforeHeight);
+    [resultBoxBeforeHeight, resultBoxAfterHeight] = [percentBefore * totalHeight, percentAfter * totalHeight];
     let resultBox = document.getElementById("height-after");
-    resultBox.style.height = resultBoxHeight + "px";
+    let beforeBox = document.getElementById("height-before");
+    resultBox.style.height = resultBoxAfterHeight + "px";
+    beforeBox.style.height = resultBoxBeforeHeight + "px";
 
     //update the money texts
     const moneyBefore = document.getElementById("money-before");
